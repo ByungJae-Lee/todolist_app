@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import './App.css';
 import Editor from './components/Editor';
 import Header from './components/Heather';
@@ -27,10 +27,11 @@ const mockData = [
 
 function App() {
   const [todos, setTodos] = useState(mockData);
+  const idRef = useRef(3);
 
   const onCreate = (content) => {
     const newTodo = {
-      id: 0,
+      id: idRef.current++,
       isDone: false,
       content: content,
       date: new Date().getTime(),
@@ -41,7 +42,7 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <Editor onCreate={onCreate}/>
+      <Editor onCreate={onCreate} />
       <List />
     </div>
   );
